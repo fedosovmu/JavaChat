@@ -9,8 +9,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class Server {
+    private static final Logger logger = Logger.getLogger("com.company.Server");
+
     public static void main(String[] args)
     {
         new Server();
@@ -28,6 +31,7 @@ public class Server {
                 Connection con = new Connection(socket);
                 connections.add(con);
                 con.start();
+                logger.info(con.socket.getLocalAddress() + " added connection");
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -46,7 +50,8 @@ public class Server {
                 }
             }
         } catch (Exception e) {
-            System.err.println("\"Error threads were note closed!");
+            System.err.println("Error threads were note closed!");
+            logger.info("Error threads were note closed!");
         }
     }
 
@@ -123,6 +128,7 @@ public class Server {
                 }
             } catch (Exception e) {
                 System.err.println("Error retrieving the message!");
+                logger.info(socket.getLocalAddress() + " Error retrieving the message!");
             }
         }
     }

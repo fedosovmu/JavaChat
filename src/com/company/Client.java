@@ -6,8 +6,11 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Scanner;
+import java.util.logging.Logger;
 
 public class Client {
+    private static final Logger logger = Logger.getLogger("com.company.Client");
+
     public static void main(String[] args)
     {
         new Client();
@@ -29,6 +32,7 @@ public class Client {
 
             Resender resend = new Resender();
             resend.start();
+            logger.info("Connected");
 
             String str = "";
             while (!str.equals("exit")) {
@@ -40,6 +44,7 @@ public class Client {
             e.printStackTrace();
         } finally {
             close();
+            logger.info("Disconnected");
         }
     }
 
@@ -51,6 +56,7 @@ public class Client {
             socket.close();
         } catch (Exception e) {
             System.err.println("Error threads were note closed!");
+            logger.info("Error threads were note closed!");
         }
     }
 
@@ -72,6 +78,7 @@ public class Client {
                 }
             } catch (IOException e) {
                 System.err.println("Error retrieving the message!");
+                logger.info("Error retrieving the message!");
                 e.printStackTrace();
             }
         }
